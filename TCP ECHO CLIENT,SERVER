@@ -1,0 +1,49 @@
+SERVER PROGRAM: 
+import java.io.*;
+import java.net.*; 
+import java.rmi.*; 
+class echos 
+{ 
+public static void main(String args[])throws Exception 
+{ 
+try 
+{ 
+ServerSocket ss=new ServerSocket(2100); 
+Socket s=ss.accept(); 
+DataInputStream in=new DataInputStream(s.getInputStream()); 
+DataOutputStream out=new DataOutputStream(s.getOutputStream()); 
+BufferedReader br=new BufferedReader(new InputStreamReader(System.in)); String msg=in.readUTF(); 
+System.out.println("The message from client is:"+msg); 
+out.writeUTF(msg); 
+} 
+catch(Exception e) 
+{ 
+e.printStackTrace(); 
+} 
+} 
+} 
+CLIENT PROGRAM: 
+import java.io.*; 
+import java.net.*; 
+import java.rmi.*; 
+class echoc 
+{ 
+public static void main(String args[])throws Exception
+{ 
+try 
+{ 
+Socket s=new Socket(InetAddress.getLocalHost(),2100); 
+DataInputStream in=new DataInputStream(s.getInputStream()); 
+DataOutputStream out=new DataOutputStream(s.getOutputStream()); 
+BufferedReader br=new BufferedReader(new InputStreamReader(System.in)); System.out.println("Enter the message:"); 
+String msg1=br.readLine(); 
+out.writeUTF(msg1); 
+String msg2=in.readUTF(); 
+System.out.println("The message from client is:"+msg2); 
+} 
+catch(Exception e) 
+{ 
+e.printStackTrace(); 
+} 
+} 
+} 
